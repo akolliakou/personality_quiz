@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+html, body {
+  font-family: 'Kiwi Maru';
+  margin-top: 1rem;
+  background-color: AliceBlue;
+}
+
+.left {
+  font-size: 0;
+  display: block;
+  margin-left: 2rem;
+  margin-right: 3rem;
+  float: left;
+}
+
+.home {
+  height: 50%;
+  width: 50%;
+  margin-top: 1rem;
+  display: table;
+  top: 0;
+  text-align: right;
+}
+
+h1 {
+  color: black;
+/*  text-transform: uppercase;*/
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+.intro-h1 {
+  font-weight: 700;
+  color: black;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.button {
+  font-size: 1.25rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  margin: 2rem;
+  padding: 0.25rem 0.5rem;
+  background-color: crimson;
+  opacity: 0.85;
+  display: table;
+}
+
+.btn-container {
+  width: 200px;
+  margin-top: 4rem;
+  float: right;
+}
+
+.submit-button {
+  font-size: 1.25rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  margin: 2rem;
+  padding: 0.25rem 0.5rem;
+  background-color: crimson;
+  opacity: 0.85;
+  display: table;
+}
