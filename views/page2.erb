@@ -1,0 +1,15 @@
+<div>
+  <h2>You usually get more joy out of:</h2>
+    <ol type="A">
+      <li>Reading a great book</li>
+      <li>Watching a great movie</li>
+    </ol>
+</div>
+
+<div>
+<form action="/recharge" method="post">
+  <label for="list_name">Enter A or B:</label>
+  <input name="list_name" placeholder="" type="text" value="<%= @choice %>">
+  <button type="submit">Submit</button>
+</form>
+</div>
