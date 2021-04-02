@@ -8,6 +8,10 @@ configure do
   set :session_secret, 'secret'
 end
 
+before do
+  
+end
+
 def valid_choice?(choice)
   choice.capitalize ==  "A" || choice.capitalize == "B"
 end
