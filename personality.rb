@@ -20,44 +20,10 @@ get "/" do
   erb :home
 end
 
-get "/page1" do
-  erb :page1
-end
-
-get "/page2" do
-  erb :page2
-end
-
-get "/page3" do
-  erb :page3
-end
-
-get "/page4" do
-  erb :page4
-end
-
-get "/page5" do
-  erb :page5
-end
-
-get "/page6" do
-  erb :page6
-end
-
-get "/page7" do
-  erb :page7
-end
-
-get "/page8" do
-  erb :page8
-end
-
-get "/page9" do
-  erb :page9
-end
-
-get "/page10" do
-  erb :page10
+get "/page/:number" do
+  number_string = params[:number].to_s
+  page_symbol = "page#{number_string}".to_sym
+  erb page_symbol
 end
 
 post "/recharge/:number" do
@@ -67,7 +33,7 @@ post "/recharge/:number" do
   if valid_choice?(choice) && number < 10
     next_page = number + 1
     session[:recharge] = choice
-    redirect "/page#{next_page}"
+    redirect "/page/#{next_page}"
   elsif valid_choice?(choice) && number > 10 #the last question-page will redirect to the results page
     session[:recharge] = choice
     redirect "/results"
