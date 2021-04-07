@@ -26,7 +26,7 @@ get "/page/:number" do
   erb page_symbol
 end
 
-post "/recharge/:number" do
+post "/recharge/:number" do #needs refactoring
   choice = params[:recharge]
   number = params[:number].to_s.to_i # we chain to_i on to_s because symbol class doesn't have to_i instance method
   puts "test test #{number}"
