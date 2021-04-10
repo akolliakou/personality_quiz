@@ -1,18 +1,17 @@
 <div>
-  <h2>You usually get more joy out of:</h2>
+  <h2><%= title(@number) %></h2>
     <ol type="A">
-      <li>Reading a great book</li>
-      <li>Watching a great movie</li>
+      <li><%= first_choice(@number) %></li>
+      <li><%= second_choice(@number) %></li>
     </ol>
 </div>
 
 <div>
-<form action="/recharge/2" method="post">
+<form action="/recharge/<%= @number %>" method="post">
   <label for="recharge">Enter A or B:</label>
   <input name="recharge" placeholder="" type="text" value="<%= params[:recharge]%>">
   <button type="submit">Submit</button>
 </form>
 </div>
-
 
 <div><%= session[:recharge] %></div>
