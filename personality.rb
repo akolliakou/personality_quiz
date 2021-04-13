@@ -9,6 +9,7 @@ configure do
 end
 
 before do
+  session[:recharge] ||= {}
   @result = File.read("data/results.txt")
 end
 
@@ -17,6 +18,10 @@ helpers do
     text.split("\n\n").each_with_index.map do |line, index|
       "<pid=paragraph#{index}>#{line}</p>"
     end.join
+  end
+
+  def clear_cash # will be triggered in results.erb line 17 when user decides to start over the quiz
+    session.clear
   end
 end
 
@@ -30,7 +35,7 @@ def erb_page(num)
 end
 
 def count_choice(letter)
-  session[:recharge].downcase.count(letter)
+  session.values.count(letter)
 end
 
 def title(number) # we could extract this into more methods like for 1-5 and 6-10 so rubocop doesn't complain
@@ -96,15 +101,16 @@ get "/results" do
 end
 
 post "/recharge/:number" do #needs refactoring
-  choice = params[:recharge]
-  @number = params[:number].to_i
+  choice = params[:recharge].to_s 
+  number = params[:number].to_i
 
-  if valid_choice?(choice) && @number < 10
-    next_page = @number + 1
-    session[:recharge] << choice
-    redirect "/page/#{next_page}"
-  elsif valid_choice?(choice) && @number == 10 #the last question-page will redirect to the results page
-    session[:recharge] << choice
+  if valid_choice?(choice) && number < 10
+    next_page = number + 1
+    session[number] = choice #we need to store two things in our session hash: page number as key, user answer as value
+    # line 109 solves the issue for user to change previous answer(s)
+    redirect "/page/#{next_page}" # when I try to replace this line with line 114 it doesn't work, no idea why.
+  elsif valid_choice?(choice) && number == 10 
+    session[number] = choice #see line 106
     redirect "/results"
   else
     session[:message] = "You can only enter A or B"
