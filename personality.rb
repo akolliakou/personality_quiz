@@ -9,7 +9,6 @@ configure do
 end
 
 before do
-  session[:recharge] ||= {}
   @result = File.read("data/results.txt")
 end
 
