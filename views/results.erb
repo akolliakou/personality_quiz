@@ -1,0 +1,18 @@
+<div>
+  <% if count_choice('A') > count_choice('B') %>
+    <h2>Result: You are an Extrovert</h2>
+  <%elsif count_choice('A') < count_choice('B')%>
+    <h2>Result: You are an Introvert</h2>
+  <%else%>
+    <h2>Result: You are an Ambivert</h2>
+  <% end %>
+</div>
+
+<div>
+  <%= result_text(@result) %>
+</div>
+
+<div class="start">
+  <a class="button" href="/">Start again</a>
+  <%clear_cash%>
+</div>
