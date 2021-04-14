@@ -30,8 +30,7 @@ def valid_choice?(choice)
 end
 
 def erb_page(num)
-  number_string = num.to_s
-  page_symbol = "page#{number_string}".to_sym
+  "page#{num}".to_sym
 end
 
 def count_choice(letter)
@@ -108,7 +107,7 @@ post "/recharge/:number" do #needs refactoring
     next_page = number + 1
     session[number] = choice #we need to store two things in our session hash: page number as key, user answer as value
     # line 109 solves the issue for user to change previous answer(s)
-    redirect "/page/#{next_page}" # when I try to replace this line with line 114 it doesn't work, no idea why.
+    erb erb_page(next_page) 
   elsif valid_choice?(choice) && number == 10 
     session[number] = choice #see line 106
     redirect "/results"
