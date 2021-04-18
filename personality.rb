@@ -19,24 +19,17 @@ helpers do
     end.join
   end
 
-  def clear_cash # will be triggered in results.erb line 17 when user decides to start over the quiz
-    session.clear
-  end
 end
 
 def valid_choice?(choice)
-  choice.capitalize ==  "A" || choice.capitalize == "B"
-end
-
-def erb_page(num)
-  "page#{num}".to_sym
+  choice == "A" || choice == "B"
 end
 
 def count_choice(letter)
   session.values.count(letter)
 end
 
-def title(number) # we could extract this into more methods like for 1-5 and 6-10 so rubocop doesn't complain
+def title(number)
   case number
     when 1 then "You're more likely to recharge your batteries by:"
     when 2 then "You usually get more joy out of:"
@@ -51,7 +44,7 @@ def title(number) # we could extract this into more methods like for 1-5 and 6-1
   end
 end
 
-def first_choice(number) # we could extract this into more methods like for 1-5 and 6-10 so rubocop doesn't complain
+def first_choice(number)
   case number
     when 1 then "Getting some alone time"
     when 2 then "Reading a great book"
@@ -66,7 +59,7 @@ def first_choice(number) # we could extract this into more methods like for 1-5 
   end
 end
 
-def second_choice(number) # we could extract this into more methods like for 1-5 and 6-10 so rubocop doesn't complain
+def second_choice(number)
   case number
     when 1 then "Going out with a group of friends"
     when 2 then "Watching a great movie"
@@ -85,10 +78,6 @@ get "/" do
   erb :home
 end
 
-# get "/page/:number" do
-#   erb erb_page(params[:number])
-# end
-
 get "/page/:number" do
   @number = params[:number].to_i
   erb :pages
@@ -98,22 +87,21 @@ get "/results" do
   erb :results
 end
 
-post "/recharge/:number" do #needs refactoring
-  choice = params[:recharge].to_s 
-  number = params[:number].to_i
+post "/quiz/:number" do
+  @choice = params[:quiz].to_s.capitalize
+  @number = params[:number].to_i
 
-  if valid_choice?(choice) && number < 10
-    next_page = number + 1
-    session[number] = choice #we need to store two things in our session hash: page number as key, user answer as value
-    # line 109 solves the issue for user to change previous answer(s)
-    erb erb_page(next_page) 
-  elsif valid_choice?(choice) && number == 10 
-    session[number] = choice #see line 106
+  if valid_choice?(@choice) && @number < 10
+    next_page = @number + 1
+    session[@number] = @choice
+    redirect "/page/#{next_page}"
+  elsif valid_choice?(@choice) && @number == 10 
+    session[@number] = @choice
     redirect "/results"
   else
     session[:message] = "You can only enter A or B"
     status 422
-    erb erb_page(params[:number])
+    erb :pages
   end
 end
 
