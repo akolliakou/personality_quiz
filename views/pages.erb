@@ -1,15 +1,24 @@
 <div>
-  <h2><%= title(@number) %></h2>
-    <ol type="A">
-      <li><%= first_choice(@number) %></li>
-      <li><%= second_choice(@number) %></li>
-    </ol>
+  <h2><%= @question %>:</h2>
 </div>
 
-<div>
 <form action="/quiz/<%= @number %>" method="post">
-  <label for="quiz">Enter A or B:</label>
-  <input name="quiz" placeholder="" type="text" value="">
-  <button type="submit">Submit</button>
+  <fieldset>
+    <ol type="A">
+      <li>
+        <label>
+          <input type="radio" name="choice" value="A">
+          <%= @answer1 %>.
+        </label>
+      </li>
+
+      <li>
+        <label>
+          <input type="radio" name="choice" value="B">
+          <%= @answer2 %>.
+        </label>
+      </li>
+    </ol>
+    <button type="submit">Submit</button>
+  </fieldset>
 </form>
-</div>
