@@ -1,15 +1,24 @@
 <div>
-  <h2><%= title(@number) %></h2>
-    <ol type="A">
-      <li><%= first_choice(@number) %></li>
-      <li><%= second_choice(@number) %></li>
-    </ol>
+  <h2><%= @question %>:</h2>
 </div>
 
-<div>
-<form action="/recharge/<%= @number %>" method="post">
-  <label for="recharge">Enter A or B:</label>
-  <input name="recharge" placeholder="" type="text" value="<%= params[:recharge]%>">
-  <button type="submit">Submit</button>
+<form action="/quiz/<%= @number %>" method="post">
+  <fieldset>
+    <ol type="A">
+      <li>
+        <label>
+          <input type="radio" name="choice" value="A">
+          <%= @answer1 %>.
+        </label>
+      </li>
+
+      <li>
+        <label>
+          <input type="radio" name="choice" value="B">
+          <%= @answer2 %>.
+        </label>
+      </li>
+    </ol>
+    <button type="submit">Submit</button>
+  </fieldset>
 </form>
-</div>
