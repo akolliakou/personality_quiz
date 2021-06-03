@@ -3,6 +3,7 @@ require 'sinatra/reloader' if development?
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'yaml'
+require 'pg'
 
 configure do
   enable :sessions
