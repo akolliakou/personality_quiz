@@ -18,7 +18,6 @@ end
 
 before do
   @result = File.read('data/results.txt')
-  @data = YAML.load_file('data/titles_questions.yaml').to_a
   @storage = DatabaseQuiz.new(logger)
 end
 
