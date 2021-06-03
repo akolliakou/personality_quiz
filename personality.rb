@@ -3,17 +3,25 @@ require 'sinatra/reloader' if development?
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'yaml'
-require 'pg'
+
+require_relative 'data_persistence'
 
 configure do
   enable :sessions
   set :session_secret, 'secret'
 end
 
+configure(:development) do
+  require "sinatra/reloader"
+  also_reload "data_persistence.rb"
+end
+
 before do
   @result = File.read('data/results.txt')
   @data = YAML.load_file('data/titles_questions.yaml').to_a
+  @storage = DatabaseQuiz.new(logger)
 end
+
 
 helpers do
   def result_text(text)
@@ -29,6 +37,11 @@ end
 
 get '/' do
   erb :home
+end
+
+post '/signup' do
+  
+
 end
 
 get '/page/:number' do
